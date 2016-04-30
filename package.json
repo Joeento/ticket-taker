@@ -1,0 +1,9 @@
+{
+  "name": "ticket-taker",
+  "description": "A job for checking if tickets to a given movie exist yet.",
+  "version": "0.0.5",
+  "main": "ticket-taker.js",
+  "dependencies": {
+    "cheerio": "~0.20.0"
+  }
+}
