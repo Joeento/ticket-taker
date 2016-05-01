@@ -5,6 +5,7 @@
   "main": "ticket-taker.js",
   "dependencies": {
     "cheerio": "~0.20.0",
-    "yargs": "~4.6.0"
+    "yargs": "~4.6.0",
+    "nodemailer": "2.3.x"
   }
 }

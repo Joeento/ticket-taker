@@ -3,10 +3,12 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var yargs = require('yargs');
+var nodemailer = require('nodemailer');
 
+var config = require('./config');
+
+var transporter = nodemailer.createTransport('smtps://' + config.gmailUsername + '%40gmail.com:' + config.gmailPassword + '@smtp.gmail.com');
 var argv = require('yargs').argv;
-console.log(argv.date);
-
 request('http://www.fandango.com/captainamerica:civilwar_185792/movietimes?location=' + argv.zip + '&date=' + argv.date, function (error, response, html) {
 	if (!error && response.statusCode === 200) {
 		var $ = cheerio.load(html);
@@ -22,6 +24,20 @@ request('http://www.fandango.com/captainamerica:civilwar_185792/movietimes?locat
 						var showtime = $(val);
 						console.log(showtime.attr('content'));
 					});
+
+					var mailOptions = {
+						from: '"Eric Kudler" <joeento@gmail.com>',
+						to: config.phoneNumber + '@vtext.com',
+						subject: '',
+						text: 'Hello world',
+					};
+					transporter.sendMail(mailOptions, function(error, info){
+						if(error){
+							return console.log(error);
+						}
+						console.log('Message sent: ' + info.response);
+					});
+
 				});
 				return false;
 			}
