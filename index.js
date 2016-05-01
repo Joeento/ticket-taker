@@ -9,7 +9,9 @@ var config = require('./config');
 
 var transporter = nodemailer.createTransport('smtps://' + config.gmailUsername + '%40gmail.com:' + config.gmailPassword + '@smtp.gmail.com');
 var argv = require('yargs').argv;
-request('http://www.fandango.com/captainamerica:civilwar_185792/movietimes?location=' + argv.zip + '&date=' + argv.date, function (error, response, html) {
+
+var url = 'http://www.fandango.com/captainamerica:civilwar_185792/movietimes?location=' + argv.zip + '&date=' + argv.date;
+request(url, function (error, response, html) {
 	if (!error && response.statusCode === 200) {
 		var $ = cheerio.load(html);
 		$('div[itemtype="http://schema.org/MovieTheater"]').each(function(key, val) {
@@ -19,25 +21,26 @@ request('http://www.fandango.com/captainamerica:civilwar_185792/movietimes?locat
 				theater.find($('span[itemtype="http://schema.org/TheaterEvent"]')).each(function(key, val) {
 					var movie = $(val);
 					var movieName = movie.find('meta[itemprop="name"]').attr('content');
-					console.log(movieName);
-					movie.find($('meta[itemprop="startDate"]')).each(function(key, val) {
-						var showtime = $(val);
-						console.log(showtime.attr('content'));
-					});
-
-					var mailOptions = {
-						from: '"Eric Kudler" <joeento@gmail.com>',
-						to: config.phoneNumber + '@vtext.com',
-						subject: '',
-						text: 'Hello world',
-					};
-					transporter.sendMail(mailOptions, function(error, info){
-						if(error){
-							return console.log(error);
+					if (movieName === 'Captain America: Civil War') {
+						if (movie.find($('meta[itemprop="startDate"]')).length > 1) {
+							console.log(true);
+							var mailOptions = {
+								from: '"Eric Kudler" <joeento@gmail.com>',
+								to: config.phoneNumber + '@vtext.com',
+								subject: '',
+								text: 'It\'s go time. \n' + url,
+							};
+							transporter.sendMail(mailOptions, function(error, info){
+								if(error){
+									return console.log(error);
+								}
+								//console.log('Message sent: ' + info.response);
+							});
+						} else {
+							console.log(false);
 						}
-						console.log('Message sent: ' + info.response);
-					});
-
+						return false;
+					}
 				});
 				return false;
 			}
