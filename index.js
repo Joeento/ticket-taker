@@ -8,7 +8,19 @@ request('http://www.fandango.com/captainamerica:civilwar_185792/movietimes?locat
 		var $ = cheerio.load(html);
 		$('div[itemtype="http://schema.org/MovieTheater"]').each(function(key, val) {
 			var theater = $(val);
-			console.log(theater.find('meta[itemprop="name"]').attr('content'));
+			var theaterName = theater.find('meta[itemprop="name"]').attr('content');
+			if (theaterName === 'AMC Levittown 10') {
+				theater.find($('span[itemtype="http://schema.org/TheaterEvent"]')).each(function(key, val) {
+					var movie = $(val);
+					var movieName = movie.find('meta[itemprop="name"]').attr('content');
+					console.log(movieName);
+					movie.find($('meta[itemprop="startDate"]')).each(function(key, val) {
+						var showtime = $(val);
+						console.log(showtime.attr("content"));
+					});
+				});
+				return false;
+			}
 		});
 	}
 });
