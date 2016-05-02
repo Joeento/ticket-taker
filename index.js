@@ -25,7 +25,7 @@ request(url, function (error, response, html) {
 							client.messages.create({
 								to: config.toNumber,
 								from: config.fromNumber,
-								body: 'It\'s go time.' + url
+								body: 'It\'s go time. ' + url
 							}, function(err, message) {
 								if (!err)
 									console.log('Message sent: ' + message.date_created);
