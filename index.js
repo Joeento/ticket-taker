@@ -4,6 +4,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var yargs = require('yargs');
 var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
 var config = require('./config');
 
@@ -25,12 +26,19 @@ request(url, function (error, response, html) {
 						if (movie.find($('meta[itemprop="startDate"]')).length > 1) {
 							console.log(true);
 							var mailOptions = {
-								from: '"Eric Kudler" <joeento@gmail.com>',
+								from: '"' + config.fromName + '" <' + config.fromEmail + '>',
 								to: config.phoneNumber + '@vtext.com',
 								subject: '',
 								text: 'It\'s go time. \n' + url,
 							};
-							transporter.sendMail(mailOptions, function(error, info){
+							var transport = nodemailer.createTransport(smtpTransport({
+								service: 'gmail',
+								auth: {
+									user: config.gmailUsername + '@gmail.com', // my mail
+									pass: config.gmailPassword
+								}
+							}));
+							transport.sendMail(mailOptions, function(error, info){
 								if(error){
 									return console.log(error);
 								}
