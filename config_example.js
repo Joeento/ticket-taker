@@ -1,6 +1,8 @@
 var config = {
 	gmailUsername: '',
 	gmailPassword: '',
-	phoneNumber: ''
+	phoneNumber: '',
+	fromAddress: '',
+	fromEmail: ''
 };
 module.exports = config;
