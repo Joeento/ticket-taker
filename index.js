@@ -20,7 +20,7 @@ request(url, function (error, response, html) {
 					var movie = $(val);
 					var movieName = movie.find('meta[itemprop="name"]').attr('content');
 					if (movieName === 'Captain America: Civil War') {
-						if (movie.find($('meta[itemprop="startDate"]')).length > 1) {
+						if (movie.find($('meta[itemprop="startDate"]')).length > 2) {
 							console.log(true);
 							client.messages.create({
 								to: config.toNumber,
