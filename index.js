@@ -3,14 +3,11 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var yargs = require('yargs');
-var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
-
-var config = require('./config');
-
-var transporter = nodemailer.createTransport('smtps://' + config.gmailUsername + '%40gmail.com:' + config.gmailPassword + '@smtp.gmail.com');
 var argv = require('yargs').argv;
 
+var config = require('./config');
+var client = require('twilio')(config.twilio.sid, config.twilio.token);
+ 
 var url = 'http://www.fandango.com/captainamerica:civilwar_185792/movietimes?location=' + argv.zip + '&date=' + argv.date;
 request(url, function (error, response, html) {
 	if (!error && response.statusCode === 200) {
@@ -25,24 +22,13 @@ request(url, function (error, response, html) {
 					if (movieName === 'Captain America: Civil War') {
 						if (movie.find($('meta[itemprop="startDate"]')).length > 1) {
 							console.log(true);
-							var mailOptions = {
-								from: '"' + config.fromName + '" <' + config.fromEmail + '>',
-								to: config.phoneNumber + '@vtext.com',
-								subject: '',
-								text: 'It\'s go time. \n' + url,
-							};
-							var transport = nodemailer.createTransport(smtpTransport({
-								service: 'gmail',
-								auth: {
-									user: config.gmailUsername + '@gmail.com', // my mail
-									pass: config.gmailPassword
-								}
-							}));
-							transport.sendMail(mailOptions, function(error, info){
-								if(error){
-									return console.log(error);
-								}
-								//console.log('Message sent: ' + info.response);
+							client.messages.create({
+								to: config.toNumber,
+								from: config.fromNumber,
+								body: 'It\'s go time.' + url
+							}, function(err, message) {
+								if (!err)
+									console.log('Message sent: ' + message.date_created);
 							});
 						} else {
 							console.log(false);

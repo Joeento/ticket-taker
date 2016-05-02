@@ -1,8 +1,9 @@
 var config = {
-	gmailUsername: '',
-	gmailPassword: '',
-	phoneNumber: '',
-	fromAddress: '',
-	fromEmail: ''
+	twilio: {
+		sid: '',
+		token: ''
+	},
+	toNumber: '',
+	fromNumber: ''
 };
 module.exports = config;
