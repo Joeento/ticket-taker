@@ -29,11 +29,17 @@ function callback(error, response, body) {
     data.theaterShowtimes.theaters.forEach(function(theater) {
     	console.log(theater.name);
     	theater.variants.forEach(function(variant) {
-    		//if (variant.formatName === "Standard") {
-    			variant.amenityGroups.forEach(function(amenityGroup) {
-    				console.log(amenityGroup.showtimes);
+    		variant.amenityGroups.forEach(function(amenityGroup) {
+    			amenityGroup.showtimes.forEach(function(showtime) {
+    				var earlyBound = new Date(date + 'T17:00:00-04:00');
+    				var showtimeDate = Date.parse(showtime.dateUtc);
+    				var lateBound = new Date(date + 'T22:00:00-04:00');
+    				if (argv.theater === theater.name && variant.formatName === "Standard" && earlyBound <= showtimeDate && showtimeDate <= lateBound) {
+						console.log(showtime);
+	    			}
     			});
-    		//}
+    			
+    		});
     	});
     });
   }
