@@ -4,6 +4,9 @@ var config = {
 		token: ''
 	},
 	toNumber: '',
-	fromNumber: ''
+	fromNumber: '',
+	fandango: {
+		cookie: '' //Cookie needs to be retrieved from fandango.com
+	}
 };
 module.exports = config;
