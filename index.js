@@ -34,10 +34,11 @@ function callback(error, response, body) {
     				var lateBound = new Date(date + 'T22:00:00-04:00');
     				if (argv.theater === theater.name && variant.formatName === "Standard" && earlyBound <= showtimeDate && showtimeDate <= lateBound) {
 						console.log(showtime);
+						var link = 'https://www.fandango.com/' + movie_slug + '/movie-times?date=' + date
 						client.messages.create({
 							to: config.toNumber,
 							from: config.fromNumber,
-							body: 'It\'s go time. ' + options.headers.referer
+							body: 'It\'s go time. ' + link
 						}, function(err, message) {
 							if (!err)
 								console.log('Message sent: ' + message.date_created);
