@@ -1,8 +1,6 @@
 'use strict';
 
 var request = require('request');
-var cheerio = require('cheerio');
-var yargs = require('yargs');
 var argv = require('yargs').argv;
 
 var config = require('./config');
