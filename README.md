@@ -11,7 +11,7 @@ Installation onto your server  pretty simple. Once the repo is cloned, you'll ne
 cp config_example.js config.js
 ```
 You'll need a Twilio phone number in order to be able to send texts from the system.  Additionally, in order to get showtimes info, you'll need session data from Fandango.  The easiest way to do this is to naviate to one of their movie pages, open the inspector, and look at the request data that gets sent to [https://www.fandango.com/napi/theaterShowtimeGroupings](https://www.fandango.com/napi/theaterShowtimeGroupings), and copy the field labelled `cookie`.  Here's what that would look like in Chrome:
-![Example][https://raw.githubusercontent.com/Joeento/ticket-taker/master/example.png]
+![alt text](https://raw.githubusercontent.com/Joeento/ticket-taker/master/example.png "Example")
 
 Then, just run:
 ```
