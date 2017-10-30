@@ -14,7 +14,7 @@ var split = movie_slug.split('-');
 var movie_id = split[split.length - 1];
 
 var options = {
-  url: 'https://www.fandango.com/napi/theaterShowtimeGroupings/' + movie_id + '/' + date +'?zip=' + zip + '&lat=40.65&long=-73.55&isdesktop=true&limit=5',
+  url: 'https://www.fandango.com/napi/theaterShowtimeGroupings/' + movie_id + '/' + date +'?zip=' + zip + '&isdesktop=true&limit=5',
   headers: {
     'cookie': config.fandango.cookie,
     'referer': 'https://www.fandango.com/' + movie_slug + '/movie-times?location=' + zip +'&date=' + date
