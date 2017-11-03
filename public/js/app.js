@@ -1,0 +1,1 @@
+angular.module('ticketTakerApp', ['ui.router', 'ui.bootstrap']);
