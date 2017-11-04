@@ -1,1 +1,1 @@
-angular.module('ticketTakerApp', ['ui.router', 'ui.bootstrap', 'ui.select']);
+angular.module('ticketTakerApp', ['ui.router', 'ui.bootstrap', 'ui.select', 'jobList']);

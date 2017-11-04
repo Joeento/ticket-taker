@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 	/api/search
 	Access Fandango's autocomplete API and convert their movie results to slugs that follow their format(sanitize name then append the ID).
 */
-app.get('/api/search/', function(req, res) {
+app.get('/api/search', function(req, res) {
     var q = req.query.q;
 	request('https://www.fandango.com/api/search/autocompletemulti?q=' + q + '&callback=callback&_=' + Date.now(), function(error, response, body) {
 		var movies = [];
@@ -40,6 +40,20 @@ app.get('/api/search/', function(req, res) {
 		eval(body);
 	});
     
+});
+
+app.get('/api/jobs', function(req, res) {
+	Job.find(function(err, jobs) {
+		if (err) throw err;
+		res.json(jobs);
+	});
+});
+
+app.get('/api/jobs/:job_id', function(req, res) {
+	Job.findById(req.params.id, function(err, jobs) {
+		if (err) throw err;
+		res.json(jobs);
+	});
 });
 
 app.get('*', function(req, res) {
