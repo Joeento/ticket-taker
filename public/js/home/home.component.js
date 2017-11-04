@@ -17,7 +17,6 @@ angular.
 					}
 				).then(function(response) {
 					self.movies = response.data;
-					console.log(self.movies);
 				});
 			}
 			self.trustAsHtml = function(value) {

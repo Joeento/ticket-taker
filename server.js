@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 */
 app.get('/api/search/', function(req, res) {
     var q = req.query.q;
-    console.log(type);
 	request('https://www.fandango.com/api/search/autocompletemulti?q=' + q + '&callback=callback&_=' + Date.now(), function(error, response, body) {
 		var movies = [];
 		var callback = function(results) {
