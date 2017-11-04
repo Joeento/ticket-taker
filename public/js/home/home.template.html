@@ -1,5 +1,16 @@
 <div class="row">
 	<div class="col-md-2 col-md-offset-1">
-		hey
+		<ui-select ng-model="$ctrl.address.selected"
+            theme="bootstrap"
+            reset-search-input="false"
+            style="width: 600px;"
+            title="Choose an address">
+				<ui-select-match placeholder="Enter an address...">{{$select.selected.name}}</ui-select-match>
+				<ui-select-choices repeat="movie in $ctrl.movies"
+             		refresh="$ctrl.refreshMovies($select.search)"
+             		refresh-delay="0">
+      					<div ng-bind-html="$ctrl.trustAsHtml(movie.name | highlight: $select.search)"></div>
+   				</ui-select-choices>
+  		</ui-select>
 	</div>
 </div>

@@ -20,6 +20,7 @@
     "angular": "^1.6.6",
     "angular-bootstrap-toggle": "^0.1.2",
     "angular-ui-router": "^1.0.7",
-    "angular-bootstrap": "^2.5.0"
+    "angular-bootstrap": "^2.5.0",
+    "angular-ui-select": "^0.19.8"
   }
 }
