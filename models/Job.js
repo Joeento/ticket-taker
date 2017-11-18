@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 // create a schema
 var jobSchema = new Schema({
     movie_id: {type: String, enum: ['Movie']},
-    theater: String
+    theater: String,
     time_start: Date,
     time_end: Date,
     active: Boolean,

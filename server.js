@@ -6,6 +6,8 @@ var request = require('request');
 
 var config = require('./config');
 
+var Job = require('./models/Job');
+
 mongoose.connect(config.mongo.url);
 
 app.use(express.static(__dirname + '/public'));
