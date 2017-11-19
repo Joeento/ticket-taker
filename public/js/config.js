@@ -18,7 +18,7 @@ angular.
     	};
 
 		var jobState = { 
-			name: 'home.job', 
+			name: 'job', 
 			url: '/job/{jobId}', 
 			component: 'jobInfo',
 			resolve: {
