@@ -1,1 +1,21 @@
-hi job
+<form class="form-horizontal" ng-submit="$ctrl.save()">
+	<div class="form-group">
+		<label for="movie-select" class="control-label col-xs-2">Movie</label>
+		<div class="col-xs-4">
+			<ui-select ng-model="$ctrl.movie"
+				theme="bootstrap"
+				reset-search-input="false"
+				style="width: 600px;"
+				input-id="movie-select"
+				title="Choose a movies">
+				<ui-select-match placeholder="Enter a movie title...">{{$select.selected.name}}</ui-select-match>
+				<ui-select-choices repeat="movie in $ctrl.movies"
+					refresh="$ctrl.refreshMovies($select.search)"
+					refresh-delay="0">
+					<div ng-bind-html="$ctrl.trustAsHtml(movie.name | highlight: $select.search)"></div>
+	   			</ui-select-choices>
+	  		</ui-select>
+	  		Selected: {{$ctrl.movie}}
+		</div>
+	</div>
+</form>
