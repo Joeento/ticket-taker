@@ -2,5 +2,33 @@
 	<a ui-sref="home.job({jobId: ''})" class="btn btn-primary">Add Job</a>
 </div>
 <table class="table table-striped">
-
+	<thead>
+		<th>
+			Movie
+		</th>
+		<th>
+			Theater
+		</th>
+		<th>
+			Range Start
+		</th>
+		<th>
+			Range End
+		</th>
+	</thead>
+	<tr ng-repeat="job in $ctrl.jobs.data">
+		<td>
+			{{job.movie_id}}
+		</td>
+		<td>
+			{{job.theater}}
+		</td>
+		<td>
+			{{job.time_start}}
+		</td>
+		<td>
+			{{job.time_end}}
+		</td>
+	</tr>
 </table>
+
