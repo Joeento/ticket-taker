@@ -28,7 +28,7 @@
 		<label for="start-date" class="control-label col-xs-2">Range Start</label>
 		<div class="col-xs-4">
 			<div class="input-group"
-				moment-picker="$ctrl.start_time"
+				moment-picker="$ctrl.job.data.time_start"
 				format="llll">
 				<span class="input-group-addon">
 					<i class="glyphicon glyphicon-calendar"></i>
@@ -36,7 +36,7 @@
 				<input class="form-control"
 					id="start-date"
 					placeholder="Select a date"
-					ng-model="$ctrl.start_time"
+					ng-model="$ctrl.job.data.time_start"
 					ng-model-options="{ updateOn: 'blur' }">
 				</div>
 		</div>
@@ -45,7 +45,7 @@
 		<label for="end-date" class="control-label col-xs-2">Range End</label>
 		<div class="col-xs-4">
 			<div class="input-group"
-				moment-picker="$ctrl.end_time"
+				moment-picker="$ctrl.job.data.time_end"
 				format="llll">
 				<span class="input-group-addon">
 					<i class="glyphicon glyphicon-calendar"></i>
@@ -53,7 +53,7 @@
 				<input class="form-control"
 					id="end-date"
 					placeholder="Select a date"
-					ng-model="$ctrl.end_time"
+					ng-model="$ctrl.job.data.time_end"
 					ng-model-options="{ updateOn: 'blur' }">
 				</div>
 		</div>
