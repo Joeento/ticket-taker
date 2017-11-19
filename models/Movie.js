@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var movieSchema = new Schema({
-    name: String
+    name: String,
     fandango_id: String,
     fandango_slug: String,
     created_at: Date,

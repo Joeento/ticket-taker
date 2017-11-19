@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var jobSchema = new Schema({
-    movie_id: {type: String, enum: ['Movie']},
+    movie_id: {type:  Schema.Types.ObjectId, enum: ['Movie']},
     theater: String,
     time_start: Date,
     time_end: Date,
