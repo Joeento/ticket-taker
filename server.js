@@ -7,6 +7,7 @@ var request = require('request');
 var config = require('./config');
 
 var Job = require('./models/Job');
+var Movie = require('./models/Movie');
 
 mongoose.connect(config.mongo.url);
 
@@ -52,7 +53,7 @@ app.get('/api/jobs', function(req, res) {
 });
 
 app.get('/api/jobs/:job_id', function(req, res) {
-	Job.findById(req.params.id, function(err, jobs) {
+	Job.findById(req.params.job_id).populate('movie').exec(function(err, jobs) {
 		if (err) throw err;
 		res.json(jobs);
 	});
