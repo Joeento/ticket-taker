@@ -3,12 +3,12 @@ angular.
     	var homeState = {
     		name: 'home',
     		url: '',
-    		component: 'jobList'
+    		component: 'home'
     	};
 
     	var jobListState = {
-    		name: 'home.jobs',
-    		url: 'jobs',
+    		name: 'jobs',
+    		url: '/jobs',
     		component: 'jobList',
     		resolve: {
 				jobs: function($http) {
@@ -30,7 +30,6 @@ angular.
 				}
 			}
 		};
-
 		$stateProvider.state(homeState);
 		$stateProvider.state(jobListState);
 		$stateProvider.state(jobState);
