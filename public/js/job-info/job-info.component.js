@@ -34,8 +34,13 @@ angular.
           		}
         	}
 
-        	//on bindings load
+        	//on bindings load into weird form
         	self.$onChanges = function (binding) {
+        		self.movie = {
+        			id: self.job.data.movie.fandango_id,
+        			name: self.job.data.movie.name,
+        			slug: self.job.data.movie.fandango_slug
+        		};
 				self.job.data.time_start = new Date(self.job.data.time_start);
 				self.job.data.time_end = new Date(self.job.data.time_end);
 			};
