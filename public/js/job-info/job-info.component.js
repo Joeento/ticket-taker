@@ -2,10 +2,10 @@ angular.
     module('ticketTakerApp').
     component('jobInfo', {
         templateUrl: 'js/job-info/job-info.template.html',
-        bindings: { jobs: '<' },
+        bindings: { job: '<' },
         controller: ['$http', '$sce', function($http, $sce) {
 			var self = this;
-			console.log('yhryhj');
+			console.log(self);
 
 			//autocomplete logic
 			self.movies = [];

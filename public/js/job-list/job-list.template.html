@@ -18,7 +18,7 @@
 	</thead>
 	<tr ng-repeat="job in $ctrl.jobs.data">
 		<td>
-			<a ui-sref="job({jobId: job._id})">{{job.movie_id}}</a>
+			<a ui-sref="job({jobId: job._id})">{{job.movie.name}}</a>
 		</td>
 		<td>
 			{{job.theater}}
