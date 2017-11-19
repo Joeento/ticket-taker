@@ -46,16 +46,16 @@ app.get('/api/search', function(req, res) {
 });
 
 app.get('/api/jobs', function(req, res) {
-	Job.find(function(err, jobs) {
+	Job.find().populate('movie').exec(function(err, jobs) {
 		if (err) throw err;
 		res.json(jobs);
 	});
 });
 
 app.get('/api/jobs/:job_id', function(req, res) {
-	Job.findById(req.params.job_id).populate('movie').exec(function(err, jobs) {
+	Job.findById(req.params.job_id).populate('movie').exec(function(err, job) {
 		if (err) throw err;
-		res.json(jobs);
+		res.json(job);
 	});
 });
 
