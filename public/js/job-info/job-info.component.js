@@ -28,7 +28,8 @@ angular.
 				$http.post(
 					'/api/jobs',
 					{
-						job: self.job.data
+						job: self.job.data,
+						movie: self.movie
 					}
 				).then(function(response) {
 					self.job = response;
