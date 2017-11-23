@@ -52,6 +52,39 @@ app.get('/api/jobs', function(req, res) {
 	});
 });
 
+app.post('/api/jobs', function(req, res) {
+    var new_job = req.body.job;
+    if (new_job._id) {
+        Job.findById(new_job._id).exec(function(err, job) {
+        	console.log(job);
+            job.theater = new_job.theater;
+            job.time_start = new Date(new_job.time_start),
+            job.time_end = new Date(new_job.time_end)
+            job.save(function(err, job) {
+		        Job.findById(job._id).populate('movie').exec(function(err, job) {
+					res.json(job);    
+				});
+			});
+        });
+
+    } else {
+        var job = new Job({
+            theater: new_job.theater,
+            time_start: new Date(new_job.time_start),
+            time_end: new Date(new_job.time_end)
+        });
+
+        job.save(function(err, job) {
+	        Job.findById(job._id).populate('movie').exec(function(err, job) {
+				res.json(job);    
+			})
+		});
+    }
+
+    
+    
+});
+
 app.get('/api/jobs/:job_id', function(req, res) {
 	Job.findById(req.params.job_id).populate('movie').exec(function(err, job) {
 		if (err) throw err;
