@@ -24,25 +24,36 @@ angular.
 				return $sce.trustAsHtml(value);
 			};
 
-			self.$onChanges = function({binding}) {
-				console.log({binding});
-				if (angular.isDefined(binding)) {
-					console.log({
-						currentValue: binding.currentValue, 
-						isFirstChange: binding.isFirstChange()
-					});
-          		}
-        	}
+			self.save = function() {
+				$http.post(
+					'/api/jobs',
+					{
+						job: self.job.data
+					}
+				).then(function(response) {
+					self.job = response;
+					self.fillForm();
+				});
+			
+			}
 
-        	//on bindings load into weird form
-        	self.$onChanges = function (binding) {
-        		self.movie = {
-        			id: self.job.data.movie.fandango_id,
-        			name: self.job.data.movie.name,
-        			slug: self.job.data.movie.fandango_slug
-        		};
+			self.fillForm = function() {
+				if (!self.job) {
+        			return;
+        		}
+				self.movie = {
+					id: self.job.data.movie.fandango_id,
+					name: self.job.data.movie.name,
+					slug: self.job.data.movie.fandango_slug
+				};
 				self.job.data.time_start = new Date(self.job.data.time_start);
 				self.job.data.time_end = new Date(self.job.data.time_end);
 			};
+			
+
+        	//on bindings load into weird form
+        	self.$onChanges = function (binding) {
+        		self.fillForm();
+        	}
 	}]
 });
