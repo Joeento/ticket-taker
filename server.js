@@ -54,20 +54,22 @@ app.get('/api/jobs', function(req, res) {
 
 app.post('/api/jobs', function(req, res) {
     var new_job = req.body.job;
-
+    var movie = req.body.movie;
     Job.findById(new_job._id).exec(function(err, job) {
     	if (!job) {
 			var job = new Job({});
-			
     	}
 		job.theater = new_job.theater;
         job.time_start = new Date(new_job.time_start),
         job.time_end = new Date(new_job.time_end)
-        job.save(function(err, job) {
-			Job.findById(job._id).populate('movie').exec(function(err, job) {
-				res.json(job);
-			})
-		});
+        saveMovie(movie, function(movie_id) {
+        	job.movie = movie_id;
+        	job.save(function(err, job) {
+				Job.findById(job._id).populate('movie').exec(function(err, job) {
+					res.json(job);
+				});
+			});
+        })
     });
 });
 
@@ -84,3 +86,20 @@ app.get('*', function(req, res) {
 
 app.listen(process.env.PORT || 8090);
 console.log("App listening on port 8080");
+
+//helper functions
+function saveMovie(fandango_movie, callback) {
+	Movie.findOne({fandango_id: fandango_movie.id}, function(err, movie) {
+		if (err) throw err;
+		if (!movie) {
+			var movie = new Movie({
+				name: fandango_movie.name,
+				fandango_id: fandango_movie.id,
+				fandango_slug: fandango_movie.slug,
+	        });
+		}
+		movie.save(function(err, m) {
+			callback(m._id);
+		});
+	})
+}
