@@ -80,6 +80,18 @@ app.get('/api/jobs/:job_id', function(req, res) {
 	});
 });
 
+app.post('/api/jobs/:job_id/toggle', function(req, res) {
+	var job_id = req.params.job_id;
+	Job.findById(job_id, function(err, job) {
+		if (err) throw err;
+		job.active = req.body.state ? req.body.state : !job.active;
+		job.save(function(err) {
+			if (err) throw err;
+			res.json(job);
+		})
+	});
+});
+
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
