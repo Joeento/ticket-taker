@@ -21,24 +21,27 @@ app.use(bodyParser.json());
 */
 app.get('/api/search', function(req, res) {
     var q = req.query.q;
+    var type = req.query.type ? req.query.type : 'Movie';
 	request('https://www.fandango.com/api/search/autocompletemulti?q=' + q + '&callback=callback&_=' + Date.now(), function(error, response, body) {
-		var movies = [];
+		var response = [];
 		var callback = function(results) {
 			results.forEach(function(result) {
-				if (result.Type === 'Movie') {
-					var movie_slug = result.Name;
-					movie_slug = movie_slug.toLowerCase();
-					movie_slug = movie_slug.replace(/[\s\(\)]/g, '');
-					movie_slug = movie_slug + '-' + result.Id.substr(1);
-
-					movies.push({
+				if (result.Type === type) {
+					var obj = {
 						id: result.Id,
 						name: result.Name,
-						slug: movie_slug
-					});
+					}
+					if (type === 'Movie') {
+						var movie_slug = result.Name;
+						movie_slug = movie_slug.toLowerCase();
+						movie_slug = movie_slug.replace(/[\s\(\)]/g, '');
+						movie_slug = movie_slug + '-' + result.Id.substr(1);
+						obj.slug = movie_slug;
+					}
+					response.push(obj);
 				}
 			});
-			res.json(movies);
+			res.json(response);
 		}
 		eval(body);
 	});
