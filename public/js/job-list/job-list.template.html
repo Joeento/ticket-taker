@@ -15,6 +15,9 @@
 		<th>
 			Range End
 		</th>
+		<th>
+			Active
+		</th>
 	</thead>
 	<tr ng-repeat="job in $ctrl.jobs.data">
 		<td>
@@ -28,6 +31,9 @@
 		</td>
 		<td>
 			{{job.time_end}}
+		</td>
+		<td>
+			<toggle ng-model="job.active" ng-change="$ctrl.toggleJob(job._id)"></toggle>
 		</td>
 	</tr>
 </table>
