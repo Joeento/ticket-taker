@@ -8,6 +8,7 @@ var config = require('./config');
 
 var Job = require('./models/Job');
 var Movie = require('./models/Movie');
+var Theater = require('./models/Theater');
 
 mongoose.connect(config.mongo.url);
 
@@ -58,6 +59,7 @@ app.get('/api/jobs', function(req, res) {
 app.post('/api/jobs', function(req, res) {
     var new_job = req.body.job;
     var movie = req.body.movie;
+    var theater = req.body.theater;
     Job.findById(new_job._id).exec(function(err, job) {
     	if (!job) {
 			var job = new Job({});
@@ -67,11 +69,14 @@ app.post('/api/jobs', function(req, res) {
         job.time_end = new Date(new_job.time_end)
         saveMovie(movie, function(movie_id) {
         	job.movie = movie_id;
-        	job.save(function(err, job) {
-				Job.findById(job._id).populate('movie').exec(function(err, job) {
-					res.json(job);
+        	saveTheater(theater, function(theater_id) {
+        		job.theater = theater_id;
+	        	job.save(function(err, job) {
+					Job.findById(job._id).populate('movie').populate('theater').exec(function(err, job) {
+						res.json(job);
+					});
 				});
-			});
+	        });
         })
     });
 });
@@ -115,6 +120,20 @@ function saveMovie(fandango_movie, callback) {
 		}
 		movie.save(function(err, m) {
 			callback(m._id);
+		});
+	})
+}
+function saveTheater(fandango_theater, callback) {
+	Theater.findOne({fandango_id: fandango_theater.id}, function(err, movie) {
+		if (err) throw err;
+		if (!theater) {
+			var theater = new Theater({
+				name: fandango_theater.name,
+				fandango_id: fandango_theater.id,
+	        });
+		}
+		theater.save(function(err, t) {
+			callback(t._id);
 		});
 	})
 }

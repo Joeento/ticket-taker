@@ -2,18 +2,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var jobSchema = new Schema({
-    movie: {type:  Schema.Types.ObjectId, ref: 'Movie'},
-    theater: {type:  Schema.Types.ObjectId, ref: 'Theater'},
-    time_start: Date,
-    time_end: Date,
-    active: Boolean,
+var theaterSchema = new Schema({
+    name: String,
+    fandango_id: String,
     created_at: Date,
     updated_at: Date
 });
 
 // on every save, add the date
-jobSchema.pre('save', function(next) {
+theaterSchema.pre('save', function(next) {
   // get the current date
   var currentDate = new Date();
 
@@ -28,7 +25,7 @@ jobSchema.pre('save', function(next) {
 });
 // the schema is useless so far
 // we need to create a model using it
-var Job = mongoose.model('Job', jobSchema);
+var Theater = mongoose.model('Theater', theaterSchema);
 
-// make this available to our Jobs in our Node applications
-module.exports = Job;
+// make this available to our Theaters in our Node applications
+module.exports = Theater;
