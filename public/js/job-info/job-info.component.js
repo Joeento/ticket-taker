@@ -21,6 +21,20 @@ angular.
 					self.movies = response.data;
 				});
 			}
+			self.refreshTheaters = function(query) {
+				return $http.get(
+					'/api/search',
+					{
+						params: {
+							q: query,
+							type: 'Theater'
+						}
+					}
+				).then(function(response) {
+					self.theaters = response.data;
+				});
+			}
+
 			self.trustAsHtml = function(value) {
 				return $sce.trustAsHtml(value);
 			};
@@ -30,7 +44,8 @@ angular.
 					'/api/jobs',
 					{
 						job: self.job.data,
-						movie: self.movie
+						movie: self.movie,
+						theater: self.theater
 					}
 				).then(function(response) {
 					self.job = response;

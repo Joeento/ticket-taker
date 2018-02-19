@@ -21,7 +21,20 @@
 	<div class="form-group">
 		<label for="theater" class="control-label col-xs-2">Theater</label>
 		<div class="col-xs-4">
-			<input type="text" class="form-control" id="theater" ng-model="$ctrl.job.data.theater" />
+			<ui-select ng-model="$ctrl.theater"
+				theme="bootstrap"
+				reset-search-input="false"
+				style="width: 600px;"
+				input-id="movie-select"
+				title="Choose a movies">
+				<ui-select-match placeholder="Enter a theater name...">{{$select.selected.name}}</ui-select-match>
+				<ui-select-choices repeat="movie in $ctrl.theaters"
+					refresh="$ctrl.refreshTheaters($select.search)"
+					refresh-delay="0">
+					<div ng-bind-html="$ctrl.trustAsHtml(movie.name | highlight: $select.search)"></div>
+	   			</ui-select-choices>
+	  		</ui-select>
+	  		Selected: {{$ctrl.theater}}
 		</div>
 	</div>
 	<div class="form-group">
