@@ -63,6 +63,10 @@ angular.
 					name: self.job.data.movie.name,
 					slug: self.job.data.movie.fandango_slug
 				};
+				self.theater = {
+					id: self.job.data.theater.fandango_id,
+					name: self.job.data.theater.name
+				};
 				self.job.data.time_start = new Date(self.job.data.time_start);
 				self.job.data.time_end = new Date(self.job.data.time_end);
 			};
