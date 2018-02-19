@@ -13,7 +13,8 @@ angular.
 					'/api/search',
 					{
 						params: {
-							q: query
+							q: query,
+							type: 'Movie'
 						}
 					}
 				).then(function(response) {
