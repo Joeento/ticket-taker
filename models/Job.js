@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var jobSchema = new Schema({
     movie: {type:  Schema.Types.ObjectId, ref: 'Movie'},
     theater: {type:  Schema.Types.ObjectId, ref: 'Theater'},
+    format: String,
     time_start: Date,
     time_end: Date,
     active: Boolean,
