@@ -1,7 +1,6 @@
 'use strict';
 
 var request = require('request');
-var argv = require('yargs').argv;
 var mongoose = require('mongoose');
 
 var config = require('../config');
@@ -16,7 +15,6 @@ mongoose.connect(config.mongo.url);
 Job.find().populate('movie').populate('theater').exec({}, function(err, jobs) {
     jobs.forEach(function(job) {
         var date = new Date(job.time_start);
-        console.log('https://www.fandango.com/napi/theaterMovieShowtimes/' + job.theater.fandango_id + '?startDate=' + toISODate(date) + '&isdesktop=true');
         var options = {
             url: 'https://www.fandango.com/napi/theaterMovieShowtimes/' + job.theater.fandango_id + '?startDate=' + toISODate(date) + '&isdesktop=true',
             headers: {
