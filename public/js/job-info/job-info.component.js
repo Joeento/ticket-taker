@@ -70,11 +70,35 @@ angular.
 				self.job.data.time_start = new Date(self.job.data.time_start);
 				self.job.data.time_end = new Date(self.job.data.time_end);
 			};
-			
 
         	//on bindings load into weird form
         	self.$onChanges = function (binding) {
         		self.fillForm();
         	}
+
+			self.dateOptions = {
+				dateDisabled: disabled,
+				formatYear: 'yy',
+				maxDate: new Date(2020, 5, 22),
+				minDate: new Date(),
+				startingDay: 1
+			};
+
+			function disabled(data) {
+				var date = data.date, mode = data.mode;
+				var today = new Date();
+				return mode === 'day' && date < today;
+			}
+
+			self.openCalendar = function() {
+				self.calendar.opened = true;
+			};
+
+			self.format = 'MMMM dd, yyyy';
+			self.altInputFormats = ['M!/d!/yyyy'];
+
+			self.calendar = {
+				opened: false
+			};
 	}]
 });

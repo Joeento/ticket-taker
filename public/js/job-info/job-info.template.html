@@ -38,20 +38,14 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="start-date" class="control-label col-xs-2">Range Start</label>
+		<label for="start-date" class="control-label col-xs-2">Date</label>
 		<div class="col-xs-4">
-			<div class="input-group"
-				moment-picker="$ctrl.job.data.time_start"
-				format="llll">
-				<span class="input-group-addon">
-					<i class="glyphicon glyphicon-calendar"></i>
+			<div class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="dt" is-open="$ctrl.calendar.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="$ctrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>
-				<input class="form-control"
-					id="start-date"
-					placeholder="Select a date"
-					ng-model="$ctrl.job.data.time_start"
-					ng-model-options="{ updateOn: 'blur' }">
-				</div>
+        	</div>
 		</div>
 	</div>
 	<div class="form-group">
